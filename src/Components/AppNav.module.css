@@ -1,0 +1,13 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+}

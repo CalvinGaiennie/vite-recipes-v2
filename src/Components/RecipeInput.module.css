@@ -1,0 +1,17 @@
+.flex {
+  display: flex;
+}
+
+.flex > div {
+  margin: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form > button {
+  width: 100px;
+  margin-left: 30px;
+}
