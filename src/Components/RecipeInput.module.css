@@ -15,3 +15,12 @@
   width: 100px;
   margin-left: 30px;
 }
+
+.multiInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.multiInput > Input {
+  margin-bottom: 10px;
+}

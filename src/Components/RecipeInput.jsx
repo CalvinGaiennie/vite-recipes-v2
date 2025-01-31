@@ -1,28 +1,33 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Header } from "./Header";
 import styles from "./RecipeInput.module.css";
 function RecipeInput() {
-  const recipeNameRef = useRef(null);
-  const ingredientsRef = useRef(null);
-  const stepsRef = useRef(null);
-  const recipeAuthorRef = useRef(null);
-  const [recipe, setRecipe] = useState(null);
+  const [ingredients, setIngredients] = useState([""]);
+  const [steps, setSteps] = useState([""]);
+  const [formData, setFormData] = useState({
+    author: "",
+    name: "",
+    ingredients: "",
+    steps: "",
+  });
 
-  const handleSubmit = (e) => {
+  function addIngredient() {
+    const ingredient = "";
+    setIngredients([...ingredients, ingredient]);
+  }
+
+  function addStep() {
+    const step = "";
+    setSteps([...steps, step]);
+  }
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
     e.preventDefault();
-
-    const newRecipe = {
-      name: recipeNameRef.current.value,
-      ingredients: ingredientsRef.current.value.split("&&&"),
-      steps: stepsRef.current.value.split("&&&"),
-    };
-
-    setRecipe(newRecipe);
-
-    recipeNameRef.current.value = "";
-    ingredientsRef.current.value = "";
-    stepsRef.current.value = "";
-  };
+    console.log("form submitted", formData);
+  }
 
   return (
     <div>
@@ -33,48 +38,68 @@ function RecipeInput() {
             <h3>Recipe Author</h3>
             <input
               type="text"
+              name="author"
               placeholder="Recipe Author"
-              ref={recipeAuthorRef}
+              value={formData.author}
+              onChange={handleChange}
             />
           </div>
           <div>
             <h3>Recipe Name</h3>
-            <input type="text" placeholder="Recipe Name" ref={recipeNameRef} />
+            <input
+              type="text"
+              name="name"
+              placeholder="Recipe Name"
+              value={formData.name}
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className={styles.flex}>
           <div>
             <h3>Ingredients</h3>
-            <p>(separated by &&&)</p>
-            <input type="text" placeholder="Ingredients" ref={ingredientsRef} />
+            <div>
+              <div className={styles.multiInput}>
+                {ingredients.map((ingredient, i) => (
+                  <input
+                    key={i}
+                    type="text"
+                    name="ingredinets"
+                    placeholder="Ingredinets"
+                    value={formData.ingredienets}
+                    onChange={handleChange}
+                  />
+                ))}
+              </div>
+
+              <button onClick={() => addIngredient()}>Add Step</button>
+            </div>
           </div>
           <div>
             <h3>Steps</h3>
-            <p>(separated by &&&)</p>
-            <input type="text" placeholder="Steps" ref={stepsRef} />
+            <div>
+              <div className={styles.multiInput}>
+                {steps.map((step, i) => (
+                  <input
+                    key={i}
+                    type="text"
+                    name="steps"
+                    placeholder="Steps"
+                    value={formData.steps}
+                    onChange={handleChange}
+                  />
+                ))}
+              </div>
+
+              <button onClick={() => addStep()}>Add Step</button>
+            </div>
           </div>
         </div>
+
         <button type="submit">Add Recipe</button>
       </form>
 
-      {recipe && (
-        <div>
-          <h2>{recipe.name}</h2>
-          <h3>Author: {recipe.author}</h3>
-          <h3>Ingredients:</h3>
-          <ul>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-          <h3>Steps:</h3>
-          <ol>
-            {recipe.steps.map((step, index) => (
-              <li key={index}>{step}</li>
-            ))}
-          </ol>
-        </div>
-      )}
+      <pre>{JSON.stringify(formData)}</pre>
     </div>
   );
 }
