@@ -9,6 +9,12 @@ function RecipeInput() {
     steps: [""],
   });
 
+  function deleteInput(i, field) {
+    const newData = [...formData[field]];
+    newData.splice(i, 1);
+    setFormData({ ...formData, [field]: newData });
+  }
+
   function addIngredient() {
     setFormData({
       ...formData,
@@ -74,6 +80,7 @@ function RecipeInput() {
                     value={formData.ingredients[i]}
                     onChange={(e) => handleChange(e, i, "ingredients")}
                   />
+                  <p onClick={() => deleteInput(i, "ingredients")}>❌</p>
                 </div>
               ))}
               <button onClick={() => addIngredient()}>Add Step</button>
@@ -92,6 +99,7 @@ function RecipeInput() {
                     value={formData.steps[i]}
                     onChange={(e) => handleChange(e, i, "steps")}
                   />
+                  <p onClick={() => deleteInput(i, "steps")}>❌</p>
                 </div>
               ))}
               <button onClick={() => addStep()}>Add Step</button>
