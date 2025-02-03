@@ -2,26 +2,31 @@ import { useState } from "react";
 import { Header } from "./Header";
 import styles from "./RecipeInput.module.css";
 function RecipeInput() {
-  const [ingredients, setIngredients] = useState([""]);
-  const [steps, setSteps] = useState([""]);
   const [formData, setFormData] = useState({
     author: "",
     name: "",
-    ingredients: "",
-    steps: "",
+    ingredients: [""],
+    steps: [""],
   });
 
   function addIngredient() {
-    const ingredient = "";
-    setIngredients([...ingredients, ingredient]);
+    setFormData({
+      ...formData,
+      ingredients: [...formData.ingredients, ""],
+    });
   }
 
   function addStep() {
-    const step = "";
-    setSteps([...steps, step]);
+    setFormData({
+      ...formData,
+      steps: [...formData.steps, ""],
+    });
   }
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  function handleChange(e, index, field) {
+    const newData = [...formData[field]];
+    newData[index] = e.target.value;
+    setFormData({ ...formData, [field]: newData });
   }
 
   function handleSubmit(e) {
@@ -41,7 +46,7 @@ function RecipeInput() {
               name="author"
               placeholder="Recipe Author"
               value={formData.author}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, 0, "author")}
             />
           </div>
           <div>
@@ -51,46 +56,44 @@ function RecipeInput() {
               name="name"
               placeholder="Recipe Name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e, 0, "name")}
             />
           </div>
         </div>
         <div className={styles.flex}>
           <div>
-            <h3>Ingredients</h3>
-            <div>
-              <div className={styles.multiInput}>
-                {ingredients.map((ingredient, i) => (
+            <div className={styles.multiInput}>
+              <h3>Ingredients</h3>
+              {formData.ingredients.map((ingredient, i) => (
+                <div key={i} className={styles.label}>
+                  <p>{i}: </p>
                   <input
-                    key={i}
                     type="text"
-                    name="ingredinets"
-                    placeholder="Ingredinets"
-                    value={formData.ingredienets}
-                    onChange={handleChange}
+                    name={`ingredient-${i}`}
+                    placeholder="Ingredients"
+                    value={formData.ingredients[i]}
+                    onChange={(e) => handleChange(e, i, "ingredients")}
                   />
-                ))}
-              </div>
-
+                </div>
+              ))}
               <button onClick={() => addIngredient()}>Add Step</button>
             </div>
           </div>
           <div>
-            <h3>Steps</h3>
-            <div>
-              <div className={styles.multiInput}>
-                {steps.map((step, i) => (
+            <div className={styles.multiInput}>
+              <h3>Steps</h3>
+              {formData.steps.map((step, i) => (
+                <div key={i} className={styles.label}>
+                  <p>{i}: </p>
                   <input
-                    key={i}
                     type="text"
-                    name="steps"
+                    name={`step-${i}`}
                     placeholder="Steps"
-                    value={formData.steps}
-                    onChange={handleChange}
+                    value={formData.steps[i]}
+                    onChange={(e) => handleChange(e, i, "steps")}
                   />
-                ))}
-              </div>
-
+                </div>
+              ))}
               <button onClick={() => addStep()}>Add Step</button>
             </div>
           </div>
