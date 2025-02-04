@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Header } from "./Header";
 import styles from "./RecipeInput.module.css";
+
+// Create a constant for the API URL
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+
 function RecipeInput() {
   const [formData, setFormData] = useState({
     author: "",
@@ -30,14 +34,53 @@ function RecipeInput() {
   }
 
   function handleChange(e, index, field) {
-    const newData = [...formData[field]];
-    newData[index] = e.target.value;
-    setFormData({ ...formData, [field]: newData });
+    if (field === "ingredients" || field === "steps") {
+      // Handle arrays (ingredients and steps)
+      const newData = [...formData[field]];
+      newData[index] = e.target.value;
+      setFormData({ ...formData, [field]: newData });
+    } else {
+      // Handle strings (author and name)
+      setFormData({ ...formData, [field]: e.target.value });
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("form submitted", formData);
+    console.log("Attempting to submit:", formData);
+
+    // Use API_URL instead of hardcoded localhost
+    fetch(`${API_URL}/api/recipes`, {
+      method: "GET",
+    })
+      .then((response) => {
+        console.log("Server is reachable");
+
+        // If server is reachable, proceed with POST
+        return fetch(`${API_URL}/api/recipes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+      })
+      .then((response) => {
+        console.log("Response status:", response.status);
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Success:", data);
+        setFormData({
+          author: "",
+          name: "",
+          ingredients: [""],
+          steps: [""],
+        });
+      })
+      .catch((error) => {
+        console.error("Error details:", error);
+      });
   }
 
   return (
@@ -83,7 +126,9 @@ function RecipeInput() {
                   <p onClick={() => deleteInput(i, "ingredients")}>❌</p>
                 </div>
               ))}
-              <button onClick={() => addIngredient()}>Add Step</button>
+              <button type="button" onClick={() => addIngredient()}>
+                Add Step
+              </button>
             </div>
           </div>
           <div>
@@ -102,7 +147,9 @@ function RecipeInput() {
                   <p onClick={() => deleteInput(i, "steps")}>❌</p>
                 </div>
               ))}
-              <button onClick={() => addStep()}>Add Step</button>
+              <button type="button" onClick={() => addStep()}>
+                Add Step
+              </button>
             </div>
           </div>
         </div>
