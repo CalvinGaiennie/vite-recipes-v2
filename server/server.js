@@ -10,7 +10,11 @@ const app = express();
 // CORS configuration
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"], // Allow both localhost and IP
+    origin: [
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "https://vite-recipes-v2.netlify.app",
+    ], // Allow both localhost and IP
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
