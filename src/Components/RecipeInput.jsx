@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Header } from "./Header";
-import styles from "./RecipeInput.module.css";
 
 // Create a constant for the API URL
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
@@ -86,8 +85,8 @@ function RecipeInput() {
   return (
     <div>
       <Header pageTitle="Recipe Input" />
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.flex}>
+      <form onSubmit={handleSubmit}>
+        <div >
           <div>
             <h3>Recipe Author</h3>
             <input
@@ -109,7 +108,7 @@ function RecipeInput() {
             />
           </div>
         </div>
-        <div className={styles.flex}>
+        <div >
           <div>
             <h3>Ingredients</h3>
             {formData.ingredients.map((ingredient, i) => (

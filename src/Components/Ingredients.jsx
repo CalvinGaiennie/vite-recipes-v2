@@ -14,7 +14,7 @@ export function Ingredients({ currentObject, updatedIngredientMap }) {
     updatedIngredientMap
   );
   return (
-    <div className="body-parts">
+    <div>
       <h2>Ingredients</h2>
       <p>
         {currentIngredients.map((ingredient) => (

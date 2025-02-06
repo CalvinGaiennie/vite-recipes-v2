@@ -1,4 +1,3 @@
-import styles from "./RecipeSelector.module.css";
 function RecipeSelector({
   selectedRecipe,
   onSetSelectedRecipe,
@@ -8,7 +7,7 @@ function RecipeSelector({
 }) {
   //   const recipes = recipeNames;
   return (
-    <div className={styles.container}>
+    <div>
       <div>
         <h3>Recipe</h3>
         <select

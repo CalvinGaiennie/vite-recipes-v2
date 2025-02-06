@@ -1,5 +1,3 @@
-import styles from "./Body.module.css";
-
 export function Body({ selectedRecipe, numOfServings }) {
   // Scale ingredients based on number of servings
   const scaledIngredients = selectedRecipe.ingredients.map((ingredient) => {
@@ -9,7 +7,7 @@ export function Body({ selectedRecipe, numOfServings }) {
 
   return (
     <div>
-      <div className={styles.container}>
+      <div>
         <div>
           <h2>Ingredients</h2>
           <p>
