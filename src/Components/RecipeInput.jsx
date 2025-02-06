@@ -83,24 +83,26 @@ function RecipeInput() {
   }
 
   return (
-    <div>
+    <div className="container">
       <Header pageTitle="Recipe Input" />
-      <form onSubmit={handleSubmit}>
-        <div >
-          <div>
-            <h3>Recipe Author</h3>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <div className="row mb-4">
+          <div className="col-md-6 mb-3">
+            <h3 className="h5 mb-3">Recipe Author</h3>
             <input
               type="text"
+              className="form-control"
               name="author"
               placeholder="Recipe Author"
               value={formData.author}
               onChange={(e) => handleChange(e, 0, "author")}
             />
           </div>
-          <div>
-            <h3>Recipe Name</h3>
+          <div className="col-md-6 mb-3">
+            <h3 className="h5 mb-3">Recipe Name</h3>
             <input
               type="text"
+              className="form-control"
               name="name"
               placeholder="Recipe Name"
               value={formData.name}
@@ -108,51 +110,70 @@ function RecipeInput() {
             />
           </div>
         </div>
-        <div >
-          <div>
-            <h3>Ingredients</h3>
+        <div className="row">
+          <div className="col-md-6 mb-4">
+            <h3 className="h5 mb-3">Ingredients</h3>
             {formData.ingredients.map((ingredient, i) => (
-              <div key={i}>
+              <div key={i} className=" input-group mb-2">
                 <input
                   type="text"
+                  className="form-control"
                   name={`ingredient-${i}`}
                   placeholder="Ingredients"
                   value={formData.ingredients[i]}
                   onChange={(e) => handleChange(e, i, "ingredients")}
                 />
-                <p onClick={() => deleteInput(i, "ingredients")}>❌</p>
+                <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={() => deleteInput(i, "ingredients")}
+                >
+                  ❌
+                </button>
               </div>
             ))}
-            <button type="button" onClick={() => addIngredient()}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => addIngredient()}
+            >
               Add Step
             </button>
           </div>
-          <div>
-            <div>
-              <h3>Steps</h3>
-              {formData.steps.map((step, i) => (
-                <div key={i}>
-                  <input
-                    type="text"
-                    name={`step-${i}`}
-                    placeholder="Steps"
-                    value={formData.steps[i]}
-                    onChange={(e) => handleChange(e, i, "steps")}
-                  />
-                  <p onClick={() => deleteInput(i, "steps")}>❌</p>
-                </div>
-              ))}
-              <button type="button" onClick={() => addStep()}>
-                Add Step
-              </button>
-            </div>
+          <div className="col-md-6 mb-4">
+            <h3 className="h5 mb-3">Steps</h3>
+            {formData.steps.map((step, i) => (
+              <div key={i} className="input-group mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  name={`step-${i}`}
+                  placeholder="Steps"
+                  value={formData.steps[i]}
+                  onChange={(e) => handleChange(e, i, "steps")}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={() => deleteInput(i, "steps")}
+                >
+                  ❌
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => addStep()}
+            >
+              Add Step
+            </button>
           </div>
         </div>
-
-        <button type="submit">Add Recipe</button>
+        <div className="text-center mt-4">
+          <button type="submit">Add Recipe</button>
+        </div>
       </form>
-
-      <pre>{JSON.stringify(formData)}</pre>
     </div>
   );
 }
