@@ -1,5 +1,4 @@
-import { Steps } from "./Steps";
-import { Ingredients } from "./Ingredients";
+import styles from "./Body.module.css";
 
 export function Body({ selectedRecipe, numOfServings }) {
   // Scale ingredients based on number of servings
@@ -10,8 +9,8 @@ export function Body({ selectedRecipe, numOfServings }) {
 
   return (
     <div>
-      <div className="recipe-body margin">
-        <div className="body-parts">
+      <div className={styles.container}>
+        <div>
           <h2>Ingredients</h2>
           <p>
             {scaledIngredients.map((ingredient, index) => (
@@ -19,7 +18,7 @@ export function Body({ selectedRecipe, numOfServings }) {
             ))}
           </p>
         </div>
-        <div className="margin2 body-parts">
+        <div>
           <h2>Steps</h2>
           <p>
             {selectedRecipe.steps.map((step, index) => (

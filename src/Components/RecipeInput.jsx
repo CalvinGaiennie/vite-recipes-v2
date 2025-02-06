@@ -111,32 +111,28 @@ function RecipeInput() {
         </div>
         <div className={styles.flex}>
           <div>
-            <div className={styles.multiInput}>
-              <h3>Ingredients</h3>
-              {formData.ingredients.map((ingredient, i) => (
-                <div key={i} className={styles.label}>
-                  <p>{i}: </p>
-                  <input
-                    type="text"
-                    name={`ingredient-${i}`}
-                    placeholder="Ingredients"
-                    value={formData.ingredients[i]}
-                    onChange={(e) => handleChange(e, i, "ingredients")}
-                  />
-                  <p onClick={() => deleteInput(i, "ingredients")}>❌</p>
-                </div>
-              ))}
-              <button type="button" onClick={() => addIngredient()}>
-                Add Step
-              </button>
-            </div>
+            <h3>Ingredients</h3>
+            {formData.ingredients.map((ingredient, i) => (
+              <div key={i}>
+                <input
+                  type="text"
+                  name={`ingredient-${i}`}
+                  placeholder="Ingredients"
+                  value={formData.ingredients[i]}
+                  onChange={(e) => handleChange(e, i, "ingredients")}
+                />
+                <p onClick={() => deleteInput(i, "ingredients")}>❌</p>
+              </div>
+            ))}
+            <button type="button" onClick={() => addIngredient()}>
+              Add Step
+            </button>
           </div>
           <div>
-            <div className={styles.multiInput}>
+            <div>
               <h3>Steps</h3>
               {formData.steps.map((step, i) => (
-                <div key={i} className={styles.label}>
-                  <p>{i}: </p>
+                <div key={i}>
                   <input
                     type="text"
                     name={`step-${i}`}

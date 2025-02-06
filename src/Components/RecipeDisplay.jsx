@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { Body } from "./Body";
 import RecipeSelector from "./RecipeSelector";
-
+import styles from "./RecipeDisplay.module.css";
 // Create a constant for the API URL
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
@@ -48,17 +48,21 @@ function RecipeDisplay() {
         recipes={recipes}
         pageTitle="Recipe Display"
       />
-      <RecipeSelector
-        selectedRecipe={selectedRecipe}
-        onSetSelectedRecipe={setSelectedRecipe}
-        numOfServings={numOfServings}
-        onSetNumOfServings={setNumOfServings}
-        recipes={recipes}
-      />
+      <div className={styles.display}>
+        <RecipeSelector
+          selectedRecipe={selectedRecipe}
+          onSetSelectedRecipe={setSelectedRecipe}
+          numOfServings={numOfServings}
+          onSetNumOfServings={setNumOfServings}
+          recipes={recipes}
+        />
+      </div>
       <hr />
-      {currentRecipe && (
-        <Body selectedRecipe={currentRecipe} numOfServings={numOfServings} />
-      )}
+      <div className={styles.display}>
+        {currentRecipe && (
+          <Body selectedRecipe={currentRecipe} numOfServings={numOfServings} />
+        )}
+      </div>
     </div>
   );
 }

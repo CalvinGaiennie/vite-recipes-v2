@@ -1,0 +1,8 @@
+select {
+  width: 80px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}

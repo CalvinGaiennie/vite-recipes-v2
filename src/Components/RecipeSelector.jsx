@@ -1,5 +1,4 @@
-import { RecipeOptions } from "./RecipeOptions";
-
+import styles from "./RecipeSelector.module.css";
 function RecipeSelector({
   selectedRecipe,
   onSetSelectedRecipe,
@@ -9,7 +8,7 @@ function RecipeSelector({
 }) {
   //   const recipes = recipeNames;
   return (
-    <div className="margin flex">
+    <div className={styles.container}>
       <div>
         <h3>Recipe</h3>
         <select
@@ -23,7 +22,7 @@ function RecipeSelector({
           ))}
         </select>
       </div>
-      <div className="numOfServings margin2">
+      <div>
         <h3>Number Of Servings</h3>
         <select
           value={numOfServings}
