@@ -1,4 +1,6 @@
 export function Ingredients({ currentObject, updatedIngredientMap }) {
+
+  
   function calculateIngredients(currentObject, updatedIngredientMap) {
     const updatedIngredients = currentObject.ingredients.map((ingredient) => {
       let updatedIng = ingredient;

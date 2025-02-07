@@ -9,6 +9,7 @@ function RecipeInput() {
     author: "",
     name: "",
     ingredients: [""],
+    ammounts: [""],
     steps: [""],
   });
 
@@ -23,6 +24,10 @@ function RecipeInput() {
       ...formData,
       ingredients: [...formData.ingredients, ""],
     });
+    setFormData({
+      ...formData,
+      ammounts: [...formData.ammounts, ""],
+    });
   }
 
   function addStep() {
@@ -33,7 +38,7 @@ function RecipeInput() {
   }
 
   function handleChange(e, index, field) {
-    if (field === "ingredients" || field === "steps") {
+    if (field === "ingredients" || field === "steps" || field === "ammounts") {
       // Handle arrays (ingredients and steps)
       const newData = [...formData[field]];
       newData[index] = e.target.value;
@@ -74,6 +79,7 @@ function RecipeInput() {
           author: "",
           name: "",
           ingredients: [""],
+          ammounts: [""],
           steps: [""],
         });
       })
@@ -122,6 +128,14 @@ function RecipeInput() {
                   placeholder="Ingredients"
                   value={formData.ingredients[i]}
                   onChange={(e) => handleChange(e, i, "ingredients")}
+                />
+                <input
+                  type="text"
+                  className="form-control"
+                  name={`ammount-${i}`}
+                  placeholder="Ammount"
+                  value={formData.ammounts[i]}
+                  onChange={(e) => handleChange(e, i, "ammounts")}
                 />
                 <button
                   type="button"
