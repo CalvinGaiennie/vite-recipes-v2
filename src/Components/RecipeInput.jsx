@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Header } from "./Header";
-
+import styles from "./RecipeInput";
 // Create a constant for the API URL
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
@@ -11,6 +11,7 @@ function RecipeInput() {
     ingredients: [""],
     amounts: [""],
     steps: [""],
+    units: [""],
   });
 
   function deleteInput(i, field) {
@@ -18,12 +19,15 @@ function RecipeInput() {
       // Remove both ingredient and amount at the same index
       const newIngredients = [...formData.ingredients];
       const newAmounts = [...formData.amounts];
+      const newUnits = [...formData.units];
       newIngredients.splice(i, 1);
       newAmounts.splice(i, 1);
+      newUnits.splice(i, 1);
       setFormData({
         ...formData,
         ingredients: newIngredients,
         amounts: newAmounts,
+        units: newUnits,
       });
     } else {
       // Handle other fields (steps) as before
@@ -49,7 +53,12 @@ function RecipeInput() {
   }
 
   function handleChange(e, index, field) {
-    if (field === "ingredients" || field === "steps" || field === "amounts") {
+    if (
+      field === "ingredients" ||
+      field === "steps" ||
+      field === "amounts" ||
+      field === "units"
+    ) {
       // Handle arrays (ingredients and steps)
       const newData = [...formData[field]];
       newData[index] = e.target.value;
@@ -141,12 +150,23 @@ function RecipeInput() {
                 />
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control select"
                   name={`amount-${i}`}
                   placeholder="Amount"
                   value={formData.amounts[i]}
                   onChange={(e) => handleChange(e, i, "amounts")}
                 />
+                <select
+                  className="form-control select"
+                  value={formData.units[i]}
+                  name={`unit-${i}`}
+                  onChange={(e) => handleChange(e, i, "units")}
+                >
+                  <option value="" disabled>
+                    Select An Option
+                  </option>
+                  <option value="a">a</option>
+                </select>
                 <button
                   type="button"
                   className="btn btn-outline-danger"

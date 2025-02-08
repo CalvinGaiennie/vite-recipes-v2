@@ -19,16 +19,18 @@ export function Body({ selectedRecipe, numOfServings }) {
                 <h2 className="card-title h4 mb-4">Ingredients</h2>
                 <ul className="list-group">
                   {scaledIngredients.map((ingredient, index) => (
-                    <li key={index} className="list-group-item">
-                      <div className="input-group">
-                        <div className="form-control">
-                          <label className="me-2">Amount:</label>
-                          {selectedRecipe.amounts[index]}
-                        </div>
-                        <div className="form-control">
-                          <label className="me-2">Name:</label>
-                          {ingredient}
-                        </div>
+                    <li key={index} className="input-group">
+                      <div className="form-control">
+                        <label className="me-2">Amount:</label>
+                        {selectedRecipe.amounts[index]}
+                      </div>
+                      <div className="form-control">
+                        <label className="me-2">Unit:</label>
+                        {selectedRecipe.amounts[index]}
+                      </div>
+                      <div className="form-control">
+                        <label className="me-2">Name:</label>
+                        {ingredient}
                       </div>
                     </li>
                   ))}
