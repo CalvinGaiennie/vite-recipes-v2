@@ -34,13 +34,24 @@ mongoose
 
 // Recipe Schema
 const recipeSchema = new mongoose.Schema({
-  author: String,
-  name: String,
-  ingredients: [String],
-  steps: [String],
+  author: { type: String, required: true },
+  name: { type: String, required: true },
+  ingredients: { type: [String], required: true },
+  amounts: { type: [String], default: [] },
+  steps: { type: [String], required: true },
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+});
+
+// Add this to ensure the schema includes amounts in the response
+recipeSchema.set("toJSON", {
+  transform: function (doc, ret) {
+    return {
+      ...ret,
+      amounts: ret.amounts || [], // Ensure amounts is always included
+    };
   },
 });
 
@@ -57,11 +68,24 @@ app.get("/api/recipes", async (req, res) => {
 });
 
 app.post("/api/recipes", async (req, res) => {
-  const recipe = new Recipe(req.body);
+  console.log("1. Received request body:", req.body);
+
+  const recipe = new Recipe({
+    author: req.body.author,
+    name: req.body.name,
+    ingredients: req.body.ingredients,
+    amounts: req.body.amounts,
+    steps: req.body.steps,
+  });
+
+  console.log("2. Created recipe model:", recipe);
+
   try {
     const newRecipe = await recipe.save();
+    console.log("3. Saved recipe:", newRecipe);
     res.status(201).json(newRecipe);
   } catch (error) {
+    console.error("Save error:", error);
     res.status(400).json({ message: error.message });
   }
 });

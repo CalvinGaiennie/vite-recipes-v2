@@ -9,24 +9,35 @@ function RecipeInput() {
     author: "",
     name: "",
     ingredients: [""],
-    ammounts: [""],
+    amounts: [""],
     steps: [""],
   });
 
   function deleteInput(i, field) {
-    const newData = [...formData[field]];
-    newData.splice(i, 1);
-    setFormData({ ...formData, [field]: newData });
+    if (field === "ingredients") {
+      // Remove both ingredient and amount at the same index
+      const newIngredients = [...formData.ingredients];
+      const newAmounts = [...formData.amounts];
+      newIngredients.splice(i, 1);
+      newAmounts.splice(i, 1);
+      setFormData({
+        ...formData,
+        ingredients: newIngredients,
+        amounts: newAmounts,
+      });
+    } else {
+      // Handle other fields (steps) as before
+      const newData = [...formData[field]];
+      newData.splice(i, 1);
+      setFormData({ ...formData, [field]: newData });
+    }
   }
 
   function addIngredient() {
     setFormData({
       ...formData,
       ingredients: [...formData.ingredients, ""],
-    });
-    setFormData({
-      ...formData,
-      ammounts: [...formData.ammounts, ""],
+      amounts: [...formData.amounts, ""],
     });
   }
 
@@ -38,7 +49,7 @@ function RecipeInput() {
   }
 
   function handleChange(e, index, field) {
-    if (field === "ingredients" || field === "steps" || field === "ammounts") {
+    if (field === "ingredients" || field === "steps" || field === "amounts") {
       // Handle arrays (ingredients and steps)
       const newData = [...formData[field]];
       newData[index] = e.target.value;
@@ -51,7 +62,6 @@ function RecipeInput() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Attempting to submit:", formData);
 
     // Use API_URL instead of hardcoded localhost
     fetch(`${API_URL}/api/recipes`, {
@@ -79,7 +89,7 @@ function RecipeInput() {
           author: "",
           name: "",
           ingredients: [""],
-          ammounts: [""],
+          amounts: [""],
           steps: [""],
         });
       })
@@ -132,10 +142,10 @@ function RecipeInput() {
                 <input
                   type="text"
                   className="form-control"
-                  name={`ammount-${i}`}
-                  placeholder="Ammount"
-                  value={formData.ammounts[i]}
-                  onChange={(e) => handleChange(e, i, "ammounts")}
+                  name={`amount-${i}`}
+                  placeholder="Amount"
+                  value={formData.amounts[i]}
+                  onChange={(e) => handleChange(e, i, "amounts")}
                 />
                 <button
                   type="button"
@@ -151,7 +161,7 @@ function RecipeInput() {
               className="btn btn-secondary"
               onClick={() => addIngredient()}
             >
-              Add Step
+              Add Ingredient
             </button>
           </div>
           <div className="col-md-6 mb-4">

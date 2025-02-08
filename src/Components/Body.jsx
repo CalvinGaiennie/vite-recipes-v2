@@ -1,4 +1,8 @@
 export function Body({ selectedRecipe, numOfServings }) {
+  console.log("selectedRecipe:", selectedRecipe);
+  console.log("amounts:", selectedRecipe.amounts);
+  console.log("ingredients:", selectedRecipe.ingredients);
+
   // Scale ingredients based on number of servings
   const scaledIngredients = selectedRecipe.ingredients.map((ingredient) => {
     // You might want to add logic here to scale quantities based on numOfServings
@@ -13,10 +17,19 @@ export function Body({ selectedRecipe, numOfServings }) {
             <div className="card h-100">
               <div className="card-body">
                 <h2 className="card-title h4 mb-4">Ingredients</h2>
-                <ul className="list-group list-group-flush">
+                <ul className="list-group">
                   {scaledIngredients.map((ingredient, index) => (
                     <li key={index} className="list-group-item">
-                      {ingredient}
+                      <div className="input-group">
+                        <div className="form-control">
+                          <label className="me-2">Amount:</label>
+                          {selectedRecipe.amounts[index]}
+                        </div>
+                        <div className="form-control">
+                          <label className="me-2">Name:</label>
+                          {ingredient}
+                        </div>
+                      </div>
                     </li>
                   ))}
                 </ul>
