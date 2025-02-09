@@ -39,6 +39,7 @@ const recipeSchema = new mongoose.Schema({
   ingredients: { type: [String], required: true },
   amounts: { type: [String], default: [] },
   steps: { type: [String], required: true },
+  units: { type: [String], default: [] },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -50,7 +51,8 @@ recipeSchema.set("toJSON", {
   transform: function (doc, ret) {
     return {
       ...ret,
-      amounts: ret.amounts || [], // Ensure amounts is always included
+      amounts: ret.amounts || [],
+      units: ret.units || [],
     };
   },
 });
@@ -75,7 +77,9 @@ app.post("/api/recipes", async (req, res) => {
     name: req.body.name,
     ingredients: req.body.ingredients,
     amounts: req.body.amounts,
+
     steps: req.body.steps,
+    units: req.body.units,
   });
 
   console.log("2. Created recipe model:", recipe);

@@ -42,6 +42,7 @@ function RecipeInput() {
       ...formData,
       ingredients: [...formData.ingredients, ""],
       amounts: [...formData.amounts, ""],
+      units: [...formData.units, ""],
     });
   }
 
@@ -100,6 +101,7 @@ function RecipeInput() {
           ingredients: [""],
           amounts: [""],
           steps: [""],
+          units: [""],
         });
       })
       .catch((error) => {
@@ -165,7 +167,8 @@ function RecipeInput() {
                   <option value="" disabled>
                     Select An Option
                   </option>
-                  <option value="a">a</option>
+                  <option value="ounces">Ounces</option>
+                  <option value="grams">Grams</option>
                 </select>
                 <button
                   type="button"

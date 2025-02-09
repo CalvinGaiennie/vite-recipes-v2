@@ -2,6 +2,7 @@ export function Body({ selectedRecipe, numOfServings }) {
   console.log("selectedRecipe:", selectedRecipe);
   console.log("amounts:", selectedRecipe.amounts);
   console.log("ingredients:", selectedRecipe.ingredients);
+  console.log("units:", selectedRecipe.units);
 
   // Scale ingredients based on number of servings
   const scaledIngredients = selectedRecipe.ingredients.map((ingredient) => {
@@ -26,7 +27,7 @@ export function Body({ selectedRecipe, numOfServings }) {
                       </div>
                       <div className="form-control">
                         <label className="me-2">Unit:</label>
-                        {selectedRecipe.amounts[index]}
+                        {selectedRecipe.units[index]}
                       </div>
                       <div className="form-control">
                         <label className="me-2">Name:</label>
